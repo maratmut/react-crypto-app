@@ -2,7 +2,7 @@ import { Button, TextField, Typography } from '@mui/material';
 import { ILogin } from '../../../common/types/auth';
 
 const LoginPage: React.FC<ILogin> = (props: ILogin): JSX.Element => {
-  const {setPassword, setEmail, navigate} = props
+  const { navigate, register, errors} = props
 
   return (
     <>
@@ -13,21 +13,30 @@ const LoginPage: React.FC<ILogin> = (props: ILogin): JSX.Element => {
         Введите ваш логин и пароль
       </Typography>
       <TextField
+      error={!!errors.email}
         fullWidth={true}
         margin="normal"
         label="Email"
         variant="outlined"
         placeholder="Введите ваш Email"
-        onChange={(e) => setEmail(e.target.value)}
+        helperText={errors.email ? `${errors.email.message}` : ''}
+        {...register('email', {
+          required: 'Это обязательное поле'
+        })}
       />
       <TextField
+      error={!!errors.password}
         fullWidth={true}
         margin="normal"
         label="Password"
         variant="outlined"
         type='password'
         placeholder="Введите ваш Пароль"
-        onChange={(e) => setPassword(e.target.value)}
+        helperText={errors.password ? `${errors.password.message}` : ''}
+        {...register('password', {
+          required: 'Это обязательное поле',
+          minLength: 5
+        })}
       />
       <Button type='submit' sx={{fontFamily: 'Poppins', marginBottom: 2, marginTop: 2, width: '60%' }} variant="contained">Войти</Button>
       <Typography variant="body1" sx={{fontFamily: 'Poppins'}}>
