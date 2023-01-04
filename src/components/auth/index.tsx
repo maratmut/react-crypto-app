@@ -6,9 +6,11 @@ import { AppErrors } from '../../common/errors';
 import { login } from '../../store/slice/auth';
 import { instance } from '../../utils/axios';
 import { useAppDispatch } from '../../utils/hook';
+import { LoginSchema } from '../../utils/yup';
 import LoginPage from './login';
 import RegisterPage from './register';
 import './style.scss';
+import {yupResolver} from '@hookform/resolvers/yup';
 
 const AuthRootComponent: React.FC = (): JSX.Element => {
   const [email, setEmail] = useState('');
@@ -24,7 +26,9 @@ const AuthRootComponent: React.FC = (): JSX.Element => {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm();
+  } = useForm({
+    resolver: yupResolver(LoginSchema)
+  });
 
   const handleSubmitForm = async (data: any) => {
     if (location.pathname === '/login') {

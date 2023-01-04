@@ -20,9 +20,7 @@ const LoginPage: React.FC<ILogin> = (props: ILogin): JSX.Element => {
         variant="outlined"
         placeholder="Введите ваш Email"
         helperText={errors.email ? `${errors.email.message}` : ''}
-        {...register('email', {
-          required: 'Это обязательное поле'
-        })}
+        {...register('email', )}
       />
       <TextField
       error={!!errors.password}
@@ -33,10 +31,7 @@ const LoginPage: React.FC<ILogin> = (props: ILogin): JSX.Element => {
         type='password'
         placeholder="Введите ваш Пароль"
         helperText={errors.password ? `${errors.password.message}` : ''}
-        {...register('password', {
-          required: 'Это обязательное поле',
-          minLength: 5
-        })}
+        {...register('password', )}
       />
       <Button type='submit' sx={{fontFamily: 'Poppins', marginBottom: 2, marginTop: 2, width: '60%' }} variant="contained">Войти</Button>
       <Typography variant="body1" sx={{fontFamily: 'Poppins'}}>
