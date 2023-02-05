@@ -6,19 +6,13 @@ import { AppErrors } from '../../common/errors';
 import { login } from '../../store/slice/auth';
 import { instance } from '../../utils/axios';
 import { useAppDispatch } from '../../utils/hook';
-import { LoginSchema } from '../../utils/yup';
+import { LoginSchema, RegisterSchema } from '../../utils/yup';
 import LoginPage from './login';
 import RegisterPage from './register';
 import './style.scss';
-import {yupResolver} from '@hookform/resolvers/yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 const AuthRootComponent: React.FC = (): JSX.Element => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [repeatPassword, setRepeatPassword] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [username, setUsername] = useState('');
-
   const location = useLocation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -27,7 +21,7 @@ const AuthRootComponent: React.FC = (): JSX.Element => {
     formState: { errors },
     handleSubmit,
   } = useForm({
-    resolver: yupResolver(LoginSchema)
+    resolver: yupResolver(location.pathname === '/login' ? LoginSchema : RegisterSchema),
   });
 
   const handleSubmitForm = async (data: any) => {
@@ -46,13 +40,13 @@ const AuthRootComponent: React.FC = (): JSX.Element => {
         return err;
       }
     } else {
-      if (password === repeatPassword) {
+      if (data.password === data.confirmPassword) {
         try {
           const userData = {
-            username,
-            firstName,
-            email,
-            password,
+            username: data.username,
+            firstName: data.name,
+            email: data.email,
+            password: data.password,
           };
 
           const newUser = await instance.post('auth/register', userData);
@@ -80,20 +74,9 @@ const AuthRootComponent: React.FC = (): JSX.Element => {
           borderRadius={5}
           boxShadow={'5px 5px 10px #ccc'}>
           {location.pathname === '/login' ? (
-            <LoginPage 
-            navigate={navigate} 
-            register={register}
-            errors={errors}
-            />
+            <LoginPage navigate={navigate} register={register} errors={errors} />
           ) : location.pathname === '/register' ? (
-            <RegisterPage
-              setEmail={setEmail}
-              setPassword={setPassword}
-              setRepeatPassword={setRepeatPassword}
-              setFirstName={setFirstName}
-              setUsername={setUsername}
-              navigate={navigate}
-            />
+            <RegisterPage navigate={navigate} register={register} errors={errors} />
           ) : null}
         </Box>
       </form>
