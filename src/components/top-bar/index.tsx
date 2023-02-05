@@ -14,8 +14,9 @@ import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import { ColorModeContext } from '../../theme';
 import { useStyles } from './styles';
 import FlexBetween from '../flex-between';
+import { ITopBarProps } from '../../common/types/top-bar';
 
-const TopBarComponent = (props: any) => {
+const TopBarComponent: React.FC<ITopBarProps> = (props: ITopBarProps): JSX.Element => {
   const theme = useTheme();
   const colorMode: any = useContext(ColorModeContext);
   const classes = useStyles();
