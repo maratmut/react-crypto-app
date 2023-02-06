@@ -4,17 +4,20 @@ export interface ILogin<TFieldValues extends FieldValues = FieldValues, TContext
   navigate: (to: string) => void;
   register: UseFormRegister<TFieldValues>;
   errors: FieldErrors<TFieldValues>;
+  loading: boolean
 }
 
 export interface IPropsRegister<TFieldValues extends FieldValues = FieldValues, TContext = any> {
   navigate: (to: string) => void;
   register: UseFormRegister<TFieldValues>;
   errors: FieldErrors<TFieldValues>;
+  loading: boolean
 }
 
 export interface IAuthState {
   user: IPublicUser;
   isLogged: boolean;
+  isLoading: boolean
 }
 
 interface IPublicUser {
@@ -34,4 +37,16 @@ interface IWatchlist {
   createdAt: string;
   updateAt: string;
   user: number | null;
+}
+
+export interface ILoginData {
+  email: string
+  password: string
+}
+
+export interface IRegisterData {
+  email: string
+  password: string
+  firstName: string
+  username: string
 }

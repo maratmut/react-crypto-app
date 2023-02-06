@@ -1,10 +1,10 @@
 import { TextField, Typography } from '@mui/material';
 import { ILogin } from '../../../common/types/auth';
-import AppButton from '../../app-button';
+import AppLoadingButton from '../../loading-button';
 import { useStyles } from './styles';
 
 const LoginPage: React.FC<ILogin> = (props: ILogin): JSX.Element => {
-  const { navigate, register, errors } = props;
+  const { navigate, register, errors, loading } = props;
   const classes = useStyles();
 
   return (
@@ -36,12 +36,13 @@ const LoginPage: React.FC<ILogin> = (props: ILogin): JSX.Element => {
         helperText={errors.password ? `${errors.password.message}` : ''}
         {...register('password')}
       />
-      <AppButton
+      <AppLoadingButton
+        loading={loading}
         type="submit"
-        sx={{ fontFamily: 'Poppins', marginBottom: 2, marginTop: 2, width: '60%' }}
+        sx={{ marginBottom: 2, marginTop: 2, width: '60%' }}
         variant="contained">
         Войти
-      </AppButton>
+      </AppLoadingButton>
       <Typography variant="body1" sx={{ fontFamily: 'Poppins' }}>
         У вас нет аккаунта?{' '}
         <span className={classes.incitingText} onClick={() => navigate('/register')}>

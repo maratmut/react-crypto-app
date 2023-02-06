@@ -1,38 +1,62 @@
-import { createSlice } from "@reduxjs/toolkit"
-import { IAuthState } from "../../../common/types/auth"
+import { createSlice } from '@reduxjs/toolkit';
+import { IAuthState } from '../../../common/types/auth';
+import { loginUser, registerUser } from '../../thunks/auth';
 
 const initialState: IAuthState = {
-    user: {
+  user: {
+    id: null,
+    firstName: '',
+    username: '',
+    email: '',
+    createdAt: '',
+    updateAt: '',
+    watchlist: [
+      {
         id: null,
-        firstName: '',
-        username: '',
-        email: '',
+        name: '',
+        assetId: '',
         createdAt: '',
         updateAt: '',
-        watchlist: [
-            {
-                id: null,
-                name: '',
-                assetId: '',
-                createdAt: '',
-                updateAt: '',
-                user: null
-            }
-        ]
-    },
-    isLogged: false
-}
+        user: null,
+      },
+    ],
+  },
+  isLogged: false,
+  isLoading: false,
+};
 
 export const authSlice = createSlice({
-    name: 'auth',
-    initialState,
-    reducers: {
-        login(state, action) {
-            state.user = action.payload
-            state.isLogged = true
-        }
-    }
-})
+  name: 'auth',
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(loginUser.pending, (state, action) => {
+      state.isLogged = false;
+      state.isLoading = true;
+    });
+    builder.addCase(loginUser.fulfilled, (state, action) => {
+      state.user = action.payload;
+      state.isLogged = true;
+      state.isLoading = false;
+    });
+    builder.addCase(loginUser.rejected, (state, action) => {
+      state.isLogged = false;
+      state.isLoading = false;
+    });
+    builder.addCase(registerUser.pending, (state, action) => {
+      state.isLogged = false;
+      state.isLoading = true;
+    });
+    builder.addCase(registerUser.fulfilled, (state, action) => {
+      state.user = action.payload;
+      state.isLogged = true;
+      state.isLoading = false;
+    });
+    builder.addCase(registerUser.rejected, (state, action) => {
+      state.isLogged = false;
+      state.isLoading = false;
+    });
+  },
+});
 
-export const {login} = authSlice.actions
-export default authSlice.reducer
+export default authSlice.reducer;
