@@ -22,12 +22,14 @@ const TopBarComponent: React.FC<ITopBarProps> = (props: ITopBarProps): JSX.Eleme
   const classes = useStyles();
   const { setIsOpen, isOpen } = props;
 
+  const userName = sessionStorage.getItem('name')
+
   return (
     <AppBar className={classes.root} position="static">
       <Toolbar className={classes.toolbar}>
         <FlexBetween>
           <MenuOutlined className={classes.menuIcon} onClick={() => setIsOpen(!isOpen)} />
-          <Typography variant="h3">Welcome Alex</Typography>
+          <Typography variant="h3">Welcome {userName}</Typography>
         </FlexBetween>
         <Box display="flex">
           <Grid onClick={colorMode.toggleColorMode} className={classes.iconBlock}>
