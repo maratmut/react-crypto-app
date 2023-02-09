@@ -1,4 +1,3 @@
-
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -13,7 +12,7 @@ import {
 } from 'chart.js';
 
 import { Line } from 'react-chartjs-2';
-import moment from 'moment';
+import moment from 'moment'
 import { IAreaChartProps } from '../../../common/types/assets';
 
 ChartJS.register(
