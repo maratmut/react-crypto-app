@@ -39,7 +39,7 @@ export const useStyles = makeStyles((theme: Theme) => {
       lineHeight: '48px',
     },
     priceTrend: {
-      width: '25%',
+      width: 80,
       display: 'flex',
       alignItems: 'center',
       padding: '2px',

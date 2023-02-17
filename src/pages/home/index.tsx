@@ -12,9 +12,13 @@ import TopPriceComponent from '../../components/top-price';
 
 const Home: FC = (): JSX.Element => {
   const favoriteAssets: IChartData[] = useAppSelector((state) => state.assets.favoriteAssets);
+  
   const assetsArray: ISingleAsset[] = useAppSelector((state) => state.assets.assets);
+  
   const dispatch = useAppDispatch();
+
   const fetchDataRef = useRef(false);
+
   const classes = useStyles();
 
   const favoriteAssetName = useMemo(() => ['bitcoin', 'ethereum'], []);
