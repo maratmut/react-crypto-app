@@ -20,8 +20,8 @@ const TopPriceComponent = (props: any) => {
             <TableRow>
               <TableCell>Название</TableCell>
               <TableCell align="right">Цена</TableCell>
-              <TableCell align="right">Изменения (%)</TableCell>
-              <TableCell align="right">Изменения($)</TableCell>
+              <TableCell align="right">Изменения ($)</TableCell>
+              <TableCell align="right">Изменения(%)</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
